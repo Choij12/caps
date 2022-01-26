@@ -1,14 +1,17 @@
-let eventPool = require('../eventPooljs')
+'use strict';
 
-eventPool.on('pickup', (order) => {
-  console.log('Driver picked up - ORDER_ID:', order.orderID, '\n');
-  eventPool.emit('in-transit', order);
+const parcel = require('../Modules/parcel.js');
+const logEvent = require('../Modules/eventLogger');
+
+parcel.on('pickup', (payload) => {
+  console.log(`DRIVER: picked up ${payload.orderID}`);
+
+  parcel.emit('in-transit', payload);
 });
 
-function driverEvent(order){
-  console.log('Driver delivered');
-  console.log('ORDER_ID:', order.orderID, '\n');
-  eventEmitter.emit('delivered', order);
-};
-
-module.exports = driver;
+parcel.on('in-transit', (payload) => {
+  logEvent('in-transit');
+  console.log(`DRIVER: delivered ${payload.orderID}`);
+  
+  parcel.emit('delivered', payload);
+});

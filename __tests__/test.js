@@ -1,25 +1,20 @@
-let driver = require('../Modules/driver');
-let vendor = require('../Modules/vendor');
+'use strict';
 
-orders = [
-  {
-    store: 'Coffee shop',
-    orderID: '3123',
-    customer: 'Jacob',
-    address: 'New York, NY'
-  }
-];
+const logEvent = require('../Modules/eventLogger.js');
 
-describe('Tests', () => {
+describe('testing server handler', () => {
 
-  it('creates new orders', () => {
-    const consoleSpy = jest.spyOn(console, 'log');
-    driver(orders[0]);
-    expect(consoleSpy).toHaveBeenCalledWith('DRIVER: Order is delivered');
-  });
-  it('creates new orders', () => {
-    const consoleSpy = jest.spyOn(console, 'log');
-    vendor(orders[0]);
-    expect(consoleSpy).toHaveBeenCalledWith('VENDOR: Picking up');
+  console.log = jest.fn();
+  it('this should log events and payloads', () => {
+    let eventHandler = logEvent('test');
+    let payload = { 
+      store: 'Coffee shop',
+      orderID: '3123',
+      customer: 'Jacob',
+      address: 'New York, NY'
+    };
+
+    eventHandler(payload);
+    expect(console.log).toHaveBeenCalled();
   });
 });

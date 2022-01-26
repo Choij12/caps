@@ -1,13 +1,18 @@
-let eventPool = require('../eventPool.js')
+'use strict';
 
-eventPool.on('delivered', (order) => {
-  console.log('VENDOR: Thank you,', order.customer, 'from,', order.store, '\n');
-})
+const parcel = require('../Modules/parcel.js');
+const logEvent = require('../Modules/eventLogger');
 
-function vendorEvent(order){
-  console.log('VENDOR: start pickup');
-  console.log('ORDER_ID:', order.orderID, '\n');
-  eventPool.emit('pickup', order)
-}
+const orders = { 
+  store: 'Coffee shop',
+  orderID: '3123',
+  customer: 'Jacob',
+  address: 'New York, NY'
+};
 
-module.exports = vendor;
+parcel.on('delivered', (payload) => {
+  console.log(`VENDOR: Delivered your ${payload.orderID}`);
+  logEvent('delivered');
+});
+
+parcel.emit('pickup', orders);
