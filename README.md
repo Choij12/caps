@@ -22,5 +22,7 @@
  * jest
  * socket.io
  * socket.io - client
+ * uuid
+
  ## UML 
 ![](cap.png)
