@@ -20,6 +20,7 @@
 
 ## Dependencies
  * jest
-
+ * socket.io
+ * socket.io - client
  ## UML 
-![](Lab11.png)
+![](cap.png)
