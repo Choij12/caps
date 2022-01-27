@@ -1,6 +1,6 @@
 'use strict';
 
-const logEvent = require('../Modules/eventLogger.js');
+const logEvent = require('../Server/eventLogger.js');
 
 describe('testing server handler', () => {
 
