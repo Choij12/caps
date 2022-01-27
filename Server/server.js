@@ -10,15 +10,15 @@ caps.on('connection', (socket) => {
   console.log(`Socket.io is connected ${socket.id}`);
 
   socket.on('pickup', payload => {
-    socket.join(payload.orderId);
+    socket.join(payload.orders);
     caps.emit('join', payload);
     logger('pickup', payload);
   });
 
   socket.on('in-transit', payload => {
-    socket.join(payload.orderId);
+    socket.join(payload.orders);
     logger('in-transit', payload);
-    caps.to(payload.orderId).emit('delivered', payload);
+    caps.to(payload.orders).emit('delivered', payload);
     logger('delivered', payload);
   });
 });
